@@ -25,7 +25,7 @@
     <div class="container mt-4">
         <div class="col-lg-4 m-auto ">
             <form action="./user_reg.php" method="POST" class='border p-4 col-lg-10'>
-                <img class="d-block m-auto" width="200px"
+                <img class="d-block m-auto" width="100%"
                     src="https://www.vectorlogo.zone/logos/instagram/instagram-wordmark.svg" alt="">
                 <p class="text-secondary fw-medium text-center">
                     Sign up to see photos and videos from your friends.
@@ -33,6 +33,16 @@
                 <input type="text" name="m_number" placeholder="Mobile number" class='form-control rounded-1 py-1 my-1'>
                 <input type="text" name="f_name" placeholder="Full Name" class='form-control rounded-1 py-1 my-1'>
                 <input type="text" name="username" placeholder="Username" class='form-control rounded-1 py-1 my-1'>
+                <?php
+                    if(isset($_SESSION['dup_user'])){
+                ?>
+                    <p class="text-danger dup fw-bolder">
+                        <?php echo $_SESSION['dup_user'] ?>
+                    </p>
+                <?php
+                    }
+                ?>
+
                 <input type="password" name="password" placeholder="Password" class='form-control rounded-1 py-1 my-1'>
                 <p style='font-size:0.7rem' class="text-secondary text-center">
                     People who use our service may have uploaded your contact information to Instagram. Learn More</p>
@@ -45,7 +55,7 @@
                 </button>
             </form>
             <div class="sign-up text-center border p-3 my-3 col-lg-10">
-                <p style="font-size:0.9rem" class='my-0'>Have an account? <a href="./index.php"
+                <p style="font-size:0.9rem" class='my-0'>Have an account? <a href="./login.php"
                         class="text-info text-decoration-none">
                         Log in
                     </a>
@@ -53,6 +63,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let dup =document.querySelector('.dup');
+        setTimeout(() => {
+            dup.style.display = 'none'
+        }, 2000);
+    </script>
+
+    <?php
+        unset($_SESSION['dup_user']);
+    ?>
+
 </body>
 
 </html>

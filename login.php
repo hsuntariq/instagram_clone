@@ -50,16 +50,25 @@
                     
             </div>
             <div class="col-lg-6 ">
-                <form action="" class='border p-5 col-lg-10'>
+                <form action="./log_user.php" method="POST" class='border p-5 col-lg-10'>
                     <img class="d-block m-auto" width="200px" src="https://www.vectorlogo.zone/logos/instagram/instagram-wordmark.svg" alt="">
                     <input type="text" name="credential" placeholder="Phone number,username or email" class='form-control rounded-1 py-1 my-1'>
                     <input type="password" name="password" placeholder="Password" class='form-control rounded-1 py-1 my-1'>
+                    <?php
+                        if(isset($_SESSION['invalid'])){
+                    ?>
+                        <p class="text-danger invalid fw-bolder">
+                            <?php echo $_SESSION['invalid'] ?>
+                        </p>
+                    <?php
+                        }
+                    ?>
                     <button class="btn btn-info w-100 my-1">
                         Log in
                     </button>
                 </form>
                 <div class="sign-up text-center border p-3 my-3 col-lg-10">
-                    <p style="font-size:0.9rem" class='my-0'>Don't have an account <a href="./signup.php" class="text-info text-white text-decoration-none">
+                    <p style="font-size:0.9rem" class='my-0'>Don't have an account <a href="./signup.php" class="text-info  text-decoration-none">
                         Sign Up
                     </a>
                     </p>
@@ -83,8 +92,15 @@
             })
             imgs[count].style.opacity = '1'
         },2000)
-        
+        let dup =document.querySelector('.invalid');
+        setTimeout(() => {
+            dup.style.display = 'none'
+        }, 2000);
+
     </script>
+    <?php
+        unset($_SESSION['invalid']);
+    ?>
 
 </body>
 </html>

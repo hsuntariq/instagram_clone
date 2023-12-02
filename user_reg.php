@@ -10,14 +10,20 @@
 
     // execute the query
 
-    $result = mysqli_query($connection,$insert);
-    if($result){
-        $_SESSION['success_reg'] = 'Welcome ' . $user_name;
-        $_SESSION['user_check'] = $user_name;
-        header("Location: $hostname/homePage.php");     
-    }else{
-        $_SESSION['error_reg'] = 'An Error Occured';
-        header("Location: $hostname/signup.php");
+    try{
+        $result = mysqli_query($connection,$insert);
+        if($result){
+            $_SESSION['success_reg'] = 'Welcome ' . $user_name;
+            $_SESSION['user_check'] = $user_name;
+            header("Location: $hostname/homePage.php");     
+        }
+    }catch(mysqli_sql_exception $e){
+        if($e->getCode() == 1062){
+            $_SESSION['dup_user'] = 'Username already exists/taken';
+            header("Location: $hostname/signup.php");
+        }
     }
+
+    
     
     ?>

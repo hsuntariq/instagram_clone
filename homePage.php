@@ -11,6 +11,9 @@
 
     <title>Home</title>
     <style>
+        .mid{
+            background: rgb(247, 247, 247);
+        }
         .flash {
             background: linear-gradient(to right, #E31484, #FE7504, #B903EB);
             width: max-content;
@@ -46,12 +49,48 @@
             padding: 0.5rem;
         }
 
+        .underlay{
+            background: rgba(0,0,0,0.5);
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay{
+            background: white;
+            width:25%
+            
+        }
+        .st-close{
+            background: linear-gradient(to right, #E31484, #FE7504, #B903EB);
+        }
+
     </style>
 </head>
 
 <body>
 
+        <?php
+            if(isset($_SESSION['story_uploaded'])){
+        ?>
+            <div class="underlay">
+            <div class="overlay text-center p-4 rounded-3">
+                <h6>
+                    <?php echo $_SESSION['story_uploaded'] ?>
+                </h6>
+                <button class='my-1 w-100 btn st-close text-white fw-bolder'>
+                        OK
+                </button>
+            </div>
+        </div>
+
+
+
     <?php
+    }
             include './config.php';
             if(!isset($_SESSION['user_check'])){
                 header("Location: $hostname/login.php");
@@ -91,169 +130,31 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 border border-right-secondary text-capitalize p-3" style='height:100vh'>
-                <img width="100px" src="https://www.vectorlogo.zone/logos/instagram/instagram-wordmark.svg" alt="">
-                <div class="mt-5 icons d-flex flex-column fs-5 gap-4" style=''>
+            <?php include './sidebar.php' ?>
 
-                    <a href="#" class="d-flex text-dark gap-2 text-decoration-none">
-                        <div class="icons">
-                            <i class="bi bi-house-door-fill"></i>
-                        </div>
-                        <div class="text">
-                            Home
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex text-dark gap-2 text-decoration-none">
-                        <div class="icons">
-                            <i class="bi bi-search"></i> </div>
-                        <div class="text">
-                            Explore
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex text-dark gap-2 text-decoration-none">
-                        <div class="icons">
-                            <i class="bi bi-chat-dots"></i> </div>
-                        <div class="text">
-                            Messages
-                        </div>
-                    </a>
-                    <a href="#" class="d-flex text-dark gap-2 text-decoration-none">
-                        <div class="icons">
-                            <i class="bi bi-plus-square"></i> </div>
-                        <div class="text">
-                            Create
-                        </div>
-                    </a>
-                    <a href="#" class="mt-auto   d-flex text-dark gap-2 text-decoration-none">
-                        <div class="icons">
-                            <i class="bi bi-person"></i> </div>
-                        <div class="text">
-                            profile
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-            <div class="col-lg-6" style='background: lightgray;'>
+            <div class="col-lg-6 mid" style=''>
                 <div class="stories">
                     <div class="d-flex mx-auto story align-items-center gap-3" style="width:80%;overflow-x:scroll">
-                        <div class="single-story text-center">
+                        <?php  
+                            include './config.php';
+                            $select = "SELECT * FROM stories";
+                            // $user = "SELECT * FROM users WHERE id "
+                            $result = mysqli_query($connection,$select);
+                            if(mysqli_num_rows($result) > 0){
+                                while($row = mysqli_fetch_assoc($result)){
+                        ?>
+                        <a href="./single.php?id=<?php echo $row['id']?>" class="single-story text-center">
                             <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
+                                <img  src='./stories/<?php echo $row['image'] ?>' alt="">
                             </div>
                             <div class="story-text">
-                                <h6>Ali</h6>
+                                
                             </div>
                             
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
-                        <div class="single-story text-center">
-                            <div class="story-image">
-                                <img  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="">
-                            </div>
-                            <div class="story-text">
-                                <h6>Ali</h6>
-                            </div>
-                            
-                        </div>
+                        </a>
+                        <?php
+                                }}
+                        ?>
                     </div>
                 </div>
                 <div class="posts"></div>
@@ -265,6 +166,21 @@
 
 
 
+
+    <?php include './assets/boot_js.php'?>
+    <script>
+        let under =document.querySelector('.underlay');
+        let btn = document.querySelector('.st-close');
+        btn.addEventListener('click',()=>{
+            under.style.display = 'none'
+        })
+    </script>
+
+
+
+        <?php 
+            unset($_SESSION['story_uploaded']);
+        ?>
 
 
 

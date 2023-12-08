@@ -26,9 +26,15 @@
         </a>
         <a href="#" class="d-flex text-dark gap-2 text-decoration-none">
             <div class="icons">
-                <i class="bi bi-plus-square"></i> </div>
+            <i class="bi bi-plus-square"></i> </div>
             <div class="text">
-                Create
+                <!-- Button trigger modal -->
+                <span type="button" class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Create
+                </span>
+
+                <!-- Modal -->
+                <?php include './postModal.php' ?>
             </div>
         </a>
         <a href="#" class="d-flex text-dark gap-2 text-decoration-none">

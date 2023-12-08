@@ -13,6 +13,7 @@
     try{
         $result = mysqli_query($connection,$insert);
         if($result){
+            $_SESSION['id'] = mysqli_insert_id($connection);
             $_SESSION['success_reg'] = 'Welcome ' . $user_name;
             $_SESSION['user_check'] = $user_name;
             header("Location: $hostname/homePage.php");     

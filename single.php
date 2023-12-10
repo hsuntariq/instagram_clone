@@ -31,7 +31,7 @@
     include './config.php';
     include './assets/boot_css.php';
     $id = $_GET['id'];
-    $select = "SELECT * FROM stories WHERE id = $id";
+    $select = "SELECT * FROM stories WHERE user_id = $id";
     $result = mysqli_query($connection,$select);
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){

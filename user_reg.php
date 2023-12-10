@@ -16,6 +16,8 @@
             $_SESSION['id'] = mysqli_insert_id($connection);
             $_SESSION['success_reg'] = 'Welcome ' . $user_name;
             $_SESSION['user_check'] = $user_name;
+            $_SESSION['username'] = $user_name;
+            $_SESSION['f_name'] = $f_name;
             header("Location: $hostname/homePage.php");     
         }
     }catch(mysqli_sql_exception $e){

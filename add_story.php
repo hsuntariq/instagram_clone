@@ -8,7 +8,8 @@ session_start();
     // insert images in the local folder
     move_uploaded_file($tmpName, './stories/' . $fileName);
     $insert = "INSERT INTO stories (caption,image,user_id) VALUES ('{$caption}','{$fileName}',$id)";
-    mysqli_query($connection,$insert);
+    $result = mysqli_query($connection,$insert);
+    
     $_SESSION['story_uploaded'] = 'Story Uploaded Successfully!';
     header("Location: $hostname/homePage.php");
 

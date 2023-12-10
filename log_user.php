@@ -12,6 +12,8 @@
         $_SESSION['id'] = $row['id'];
         $_SESSION['user_check'] = '';
         $_SESSION['welcome'] = 'Welcome ' . $row['username'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['f_name'] = $row['f_name'];
         header("Location: $hostname/homePage.php");
 
     }else{

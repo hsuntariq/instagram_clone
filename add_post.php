@@ -1,6 +1,7 @@
 <?php 
     session_start();
     include './config.php';
+    $page = $_SERVER['HTTP_REFERER'];
     // get the current logged in user's id
     $id = $_SESSION['id'];
     // get the data
@@ -17,5 +18,5 @@
     mysqli_query($connection,$insert);
     $_SESSION['post_done'] = 'Post uploaded successfully!!!';
 
-    header("Location: $hostname/homePage.php");
+    header("Location: $page");
 ?>
